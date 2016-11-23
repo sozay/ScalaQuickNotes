@@ -254,10 +254,10 @@ val inks = Seq('c','m','y','k')
 class Car(val make: String, var reserved: Boolean) {
 	def reserve(r: Boolean): Unit = { reserved = r }
 }
-```
 
 class Lotus(val color: String, reserved: Boolean) extends
   Car("Lotus", reserved)
+```
 
 **Anonymous Classes**
 ```scala
@@ -327,9 +327,9 @@ h == r   //False
 ```
 **Traits**
 
--can extend multiple traits at the same time
--traits cannot be instantiated
--There is no interface element in scala,traits is used for this
+- can extend multiple traits at the same time
+- traits cannot be instantiated
+- There is no interface element in scala,traits is used for this
 
 ```scala
 trait Equal {
