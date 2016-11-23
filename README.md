@@ -1,5 +1,5 @@
-# ScalaQuickNotes
-Scala programming language quick review code structure
+# Scala Quick Notes
+Scala programming language quick code structure review
 
 **Defined immutable** 
 ```scala
