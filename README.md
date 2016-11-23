@@ -249,4 +249,167 @@ indexed (direct-access) lists like Vector
 ```scala
 val inks = Seq('c','m','y','k')
 ```
+##Class
+```scala
+class Car(val make: String, var reserved: Boolean) {
+	def reserve(r: Boolean): Unit = { reserved = r }
+}
+```
 
+class Lotus(val color: String, reserved: Boolean) extends
+  Car("Lotus", reserved)
+
+**Anonymous Classes**
+```scala
+abstract class Listener { def trigger }
+
+val myListener = new Listener {
+        def trigger { println(s"Trigger at ${new java.util.Date}") }
+     }
+ ```
+
+**Apply methods**
+
+Uses as default method
+```scala
+class Multiplier(factor: Int) {
+	def apply(input: Int) = input * factor
+}
+
+val tripled = tripleMe.apply(10)
+val tripled = tripleMe(10)
+```
+
+**Lazy Values**
+```scala
+class RandomPoint {
+	val x = { println("creating x"); util.Random.nextInt }  //calculated on creation
+	lazy val y = { println("now y"); util.Random.nextInt }
+}
+```
+
+**Package**
+```scala
+//import All elements
+import collection.mutable._
+//More than more
+import collection.mutable.{Queue,ArrayBuffer}
+```
+
+**Protected,private exist**
+
+Private class: Can access only from same package classes
+
+Final class: Like property, method, class an never be overridden any of subclasses
+
+**Objects, Case Classes, and Traits**
+
+Objects known in object-oriented design as a singleton.An object gets automatically instantiated the first time it is accessed in a running JVM
+
+```scala
+object Hello { println("in Hello"); def hi = "hi" }
+
+//with constructer
+class Multiplier(val x: Int) { def product(y: Int) = x * y }
+
+object Multiplier { def apply(x: Int) = new Multiplier(x) }
+```
+
+**Case Classes**
+
+includes several automatically generated methods,Case classes work great for data transfer objects like apply,copy,equals,hasCode,toString,unapply
+
+```scala
+case class Character(name: String, isThief: Boolean)
+val h = Character("Hadrian", true)    
+val r = h.copy(name = "Royce")        
+h == r   //False
+```
+**Traits**
+
+-can extend multiple traits at the same time
+-traits cannot be instantiated
+-There is no interface element in scala,traits is used for this
+
+```scala
+trait Equal {
+   def isEqual(x: Any): Boolean
+   def isNotEqual(x: Any): Boolean = !isEqual(x)
+}
+```
+
+trait is very similar abstract classes in java
+-but abstract classes can have constructer parameter
+-abstract classes are interoperable with java, traits also is, but only they don't contain implementation 
+
+**Importing Instance Members**
+```scala
+val latteReceipt = Receipt(123, 4.12, "fred", "Medium Latte")
+import latteReceipt._
+println(s"Sold a $title for $amount to $who")   //Receipt elements
+```
+**Implicit classes**
+
+type-safe way to “monkey-patch” new methods and fields onto existing classes
+```scala
+object ImplicitClasses {
+        implicit class Hello(s: String) { def hello = s"Hello, $s" }
+        def test = {
+          println( "World".hello )
+        }
+     }
+```
+**Types**
+```scala
+ type UserInfo = Tuple2[Int,String]
+ val u: UserInfo = new UserInfo(123, "George")
+```
+
+
+**TRY**
+```scala
+val number = try {
+	DangerousService.queryNextNumber
+} catch { case e: Exception =>
+ 	e.printStackTrace
+ 	60
+}
+```
+
+Try blocks return always a value
+Working try:
+```scala
+def parseURL(url: String): Try[URL] = Try(new URL(url))
+val url = parseURL(Console.readLine("URL: ")) getOrElse new URL("http://duckduckgo.com")
+```
+**FUTURE**
+
+allow you to work with asynchronous code in a type-safe and straightforward manner without
+resorting to concurrent primitives like threads or semaphores
+
+```scala
+val number1F = Future { DangerousAndSlowService.queryNextNumber }  //async
+val number2F = Future { DangerousAndSlowService.queryNextNumber } //async
+
+number1F.onSuccess { case number1 =>
+number2F.onSuccess { case number2 =>
+	println(number1 + number2)
+	}
+}
+
+
+//OR better
+
+val sumF = number1F.flatMap { number1 =>
+number2F.map { number2 =>
+	number1 + number2
+ 	}
+}
+
+//OR
+
+val sumF = for {
+	number1 <- number1F
+	number2 <- number2F
+ } yield number1 + number2
+ ```
