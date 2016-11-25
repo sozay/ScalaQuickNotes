@@ -275,7 +275,7 @@ Uses as default method
 class Multiplier(factor: Int) {
 	def apply(input: Int) = input * factor
 }
-
+val tripleMe = Multipler(3)
 val tripled = tripleMe.apply(10)
 val tripled = tripleMe(10)
 ```
