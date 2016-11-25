@@ -376,11 +376,14 @@ val number = try {
 }
 ```
 
-Try blocks return always a value
+
+blocks return always a value
 Working try:
 ```scala
 def parseURL(url: String): Try[URL] = Try(new URL(url))
-val url = parseURL(Console.readLine("URL: ")) getOrElse new URL("http://duckduckgo.com")
+
+It returns a value of type Try[URL]. If the given url is syntactically correct, this will be a Success[URL]. If the URL constructor throws a MalformedURLException, however, it will be a Failure[URL].
+
 ```
 **FUTURE**
 
