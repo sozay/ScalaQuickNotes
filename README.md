@@ -317,7 +317,7 @@ object Multiplier { def apply(x: Int) = new Multiplier(x) }
 
 **Case Classes**
 
-includes several automatically generated methods,Case classes work great for data transfer objects like apply,copy,equals,hasCode,toString,unapply
+includes several automatically generated methods like apply,copy,equals,hasCode,toString,unapply. Case classes work great for data transfer objects
 
 ```scala
 case class Character(name: String, isThief: Boolean)
